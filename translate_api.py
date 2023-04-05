@@ -3,6 +3,7 @@ import logging
 
 client = Translate()
 
+# zh-CN
 def translate(text, dest='en', src='auto'):
     logging.info(f'trans input src:{src}, dest:{dest}')
     if '' == text:
