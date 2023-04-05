@@ -3,13 +3,6 @@ import logging.handlers
 from pylibs import tools
 import os
 
-G_LOGDIR = "/data/log"
-if tools.is_windows():
-    G_LOGDIR = "C:\\log"
-
-if os.path.exists(G_LOGDIR) == False:
-    os.makedirs(G_LOGDIR)
-
 # filesize: 单个日志文件的最大大小，单位为M
 # filenum: 最多保持多少个文件
 def init_logger(level, issave=False, filename='run', filenum=10, filesize=50):
@@ -21,8 +14,7 @@ def init_logger(level, issave=False, filename='run', filenum=10, filesize=50):
         myapp.setLevel(logging.INFO)
         formatter = logging.Formatter(format_str)
         max_size = filesize * 1024 * 1024
-        logpath = os.path.join(G_LOGDIR, filename+".log")
-        filehandler = logging.handlers. RotatingFileHandler(logpath, mode='a', maxBytes=max_size, backupCount=filenum, encoding='utf-8')#每 1024Bytes重写一个文件,保留2(backupCount) 个旧文件
+        filehandler = logging.handlers. RotatingFileHandler(filename+".log", mode='a', maxBytes=max_size, backupCount=filenum, encoding='utf-8')#每 1024Bytes重写一个文件,保留2(backupCount) 个旧文件
         filehandler.setFormatter(formatter)
         myapp.addHandler(filehandler)
     else:
