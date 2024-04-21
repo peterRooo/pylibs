@@ -3,7 +3,6 @@ import logging
 import json
 import datetime
 
-
 def transcribe(audio_path):
     logging.info("start to transcribe: " + audio_path)
     model = whisper.load_model("base")
@@ -11,8 +10,6 @@ def transcribe(audio_path):
     logging.info(result["text"])
     return result['text']
 
-
-import whisper
 
 def extract_subtitles(audio_file_path, model_size='base', target_language='English', use_gpu=False):
     """
