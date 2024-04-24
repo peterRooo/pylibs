@@ -10,6 +10,8 @@ def transcribe(audio_path):
     logging.info(result["text"])
     return result['text']
 
+g_supported_subtitle_formats = ["json", "srt", "txt", "tsv", "vtt"]
+g_model_sizes = whisper.available_models()
 
 def extract_subtitles(audio_file_path, model_size='base', target_language='English', use_gpu=False):
     """
@@ -92,6 +94,16 @@ def format_transcript(transcript, output_format='txt'):
     else:
         raise ValueError(f"Unsupported output format: {output_format}")
 
+def get_language_choices():
+    lang_choices = ['自动检测']
+    lang_choices.extend(g_language_map.keys())
+    return lang_choices
+
+def get_language(choice):
+    if choice == '自动检测':
+        return None
+    else:
+        return g_language_map[choice]
 
 g_language_map = {
     '简体中文': 'Chinese',
